@@ -55,9 +55,15 @@ public abstract class AbstractCollection<E> implements Collection<E>{
         return it.hasNext() ? finishToArray(r, it) : r;
     }
 
+    /**
+     *
+     * @param a 数组a最好是内容都为null的数组
+     * @param <T>
+     * @return
+     */
     public <T> T[] toArray(T[] a){
         int size = size();
-        // 创建要返回的数组对象
+        // a数组或创建要返回的新数组对象
         T[] r = a.length >= size ? a :
                 (T[])java.lang.reflect.Array
                         .newInstance(a.getClass().getComponentType(), size);
@@ -66,17 +72,23 @@ public abstract class AbstractCollection<E> implements Collection<E>{
             // 元素个数少于预期
             if(!it.hasNext()) {
                 if (a == r) {
-                    //TODO: 这个分支理由？
+                    // 将剩余空间的的元素设置为null
                     r[i] = null;
                 } else if (a.length < i) {
+                    // collection元素被删除，无法填充满新数组r
+                    // i大于数组a的length
+                    // 顾截断新数组的长度
                     return Arrays.copyOf(r, i);
                 } else {
+                    // collection元素被删除，无法填充满新数组r
+                    // i小于等于数组a的length
                     System.arraycopy(r, 0, a, 0, i);
                     if (a.length > i) {
                         a[i] = null;
                     }
-                    return a;
                 }
+
+                return a;
             }
             r[i] = (T) it.next();
         }
@@ -106,6 +118,7 @@ public abstract class AbstractCollection<E> implements Collection<E>{
             // 数组的容量不够，需重新创建新的更大容量的数组
             if(i == cap){
                 // TODO:该算法怎么理解？
+                // 此算法的结果总是偶数
                 int newCap = cap + (cap >> 1) + 1;
                 // 检查是否溢出
                 if(newCap - MAX_ARRAY_SIZE > 0)
