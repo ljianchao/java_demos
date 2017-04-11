@@ -26,7 +26,7 @@ public interface List<E> extends Collection<E> {
     boolean remove(Object o);
 
     // 批量操作
-    boolean containAll(Collection<?> c);
+    boolean containsAll(Collection<?> c);
 
     boolean addAll(Collection<? extends E> c);
 
@@ -45,6 +45,8 @@ public interface List<E> extends Collection<E> {
     void clear();
 
     // 比较和hash
+
+    // 明确需要override
     boolean equals(Object o);
 
     int hashCode();
