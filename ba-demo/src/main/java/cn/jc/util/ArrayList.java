@@ -1,7 +1,7 @@
 package cn.jc.util;
 
-import java.util.Arrays;
-import java.util.RandomAccess;
+import java.util.*;
+import java.util.Iterator;
 
 /**
  * Created by Administrator on 2017/4/13.
@@ -114,7 +114,7 @@ public class ArrayList<E> extends AbstractList<E>
     }
 
     public boolean contains(Object o){
-        return indexOf(o) > 0;
+        return indexOf(o) >= 0;
     }
 
     public int indexOf(Object o){
@@ -283,6 +283,20 @@ public class ArrayList<E> extends AbstractList<E>
         return numNew != 0;
     }
 
+    protected void removeRange(int fromIndex, int toIndex){
+        modCount++;
+        int numMoved = size - toIndex; // toIndex之后的元素都要向前移动
+        System.arraycopy(elementData, toIndex, elementData, fromIndex,
+                numMoved);
+
+        // clear to let GC do its work
+        int newSize = size - (toIndex - fromIndex);
+        for (int i = newSize; i < size; i++){
+            elementData[i] = null;
+        }
+        size = newSize;
+    }
+
     private void rangeCheck(int index){
         if (index >= size)
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
@@ -291,6 +305,174 @@ public class ArrayList<E> extends AbstractList<E>
     private void rangeCheckForAdd(int index){
         if (index > size || index < 0)
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+    }
+
+    public boolean removeAll(Collection<?> c){
+        Objects.requireNonNull(c);
+        return batchRemove(c, false);
+    }
+
+    public boolean retainAll(Collection<?> c){
+        Objects.requireNonNull(c);
+        return batchRemove(c, true);
+    }
+
+    public ListIterator<E> listIterator(int index){
+        if (index < 0 || index > size)
+            throw new IndexOutOfBoundsException("Index: " + index);
+        return new ListItr(index);
+    }
+
+    public ListIterator<E> listIterator(){
+        return new ListItr(0);
+    }
+
+    public Iterator<E> iterator(){
+        return new Itr();
+    }
+
+    /**
+     *
+     * @param c
+     * @param complement false:remove, true:retain
+     * @return
+     */
+    private boolean batchRemove(Collection<?> c, boolean complement){
+        final Object[] elementData = this.elementData;
+        //read; write
+        int r = 0, w = 0;
+        boolean modified = false;
+        try {
+            for (; r < size; r++)
+                if (c.contains(elementData[r]) == complement)
+                    elementData[w++]=elementData[r];    //将保留的数据填充到elementData的从头开始的位置
+        } finally {
+            // list 被改变逻辑
+            if (r != size){
+                System.arraycopy(elementData, r,
+                            elementData, w,
+                            size - r);
+                w += size - r;
+            }
+
+            // clear to let GC do its work
+            if (w != size){
+                for (int i = w; i < size; i++)
+                    elementData[i] = null;
+                modCount += size - w;
+                size = w;
+                modified = true;
+            }
+        }
+
+        return modified;
+    }
+
+    private class Itr implements java.util.Iterator<E> {
+        int cursor;
+        int lastRet = -1;
+        int expectedModCount = modCount;
+
+        @Override
+        public boolean hasNext() {
+            return cursor != size;
+        }
+
+        @Override
+        public E next() {
+            checkForComodification();
+            int i = cursor;
+            if(i > size)
+                throw new NoSuchElementException();
+            Object[] elementData = ArrayList.this.elementData;
+            if (i >= elementData.length)
+                throw new ConcurrentModificationException();
+            cursor = i + 1;
+            return (E) elementData[lastRet = i];
+        }
+
+        public void remove() {
+            if (lastRet < 0)
+                throw new IllegalStateException();
+            checkForComodification();
+
+            try {
+                ArrayList.this.remove(lastRet);
+                cursor = lastRet;
+                lastRet = -1;
+                expectedModCount = modCount;
+            } catch (IndexOutOfBoundsException ex) {
+                throw new ConcurrentModificationException();
+            }
+        }
+
+        final void checkForComodification() {
+            if (modCount != expectedModCount)
+                throw new ConcurrentModificationException();
+        }
+    }
+
+    private class ListItr extends Itr implements ListIterator<E>{
+        ListItr(int index){
+            super();
+            cursor = index;
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            return cursor != 0;
+        }
+
+        @Override
+        public E previous() {
+            checkForComodification();
+            int i = cursor - 1;
+            if (i < 0)
+                throw new NoSuchElementException();
+            Object[] elementData = ArrayList.this.elementData;
+            if (i >= elementData.length)
+                throw new ConcurrentModificationException();
+            cursor = i;
+            return (E)elementData[lastRet = i];
+        }
+
+        @Override
+        public int nextIndex() {
+            return cursor;
+        }
+
+        @Override
+        public int previousIndex() {
+            return cursor - 1;
+        }
+
+
+        @Override
+        public void set(E e) {
+            if (lastRet < 0)
+                throw new IllegalStateException();
+            checkForComodification();
+
+            try {
+                ArrayList.this.set(lastRet, e);
+            } catch (IndexOutOfBoundsException ex){
+                throw new ConcurrentModificationException();
+            }
+        }
+
+        @Override
+        public void add(E e) {
+            checkForComodification();
+            try {
+                int i = cursor;
+                ArrayList.this.add(i, e);
+                cursor = i + 1;
+                lastRet = -1;
+                expectedModCount = modCount;
+            } catch (IndexOutOfBoundsException ex){
+                throw new ConcurrentModificationException();
+            }
+        }
     }
 
     private String outOfBoundsMsg(int index) {

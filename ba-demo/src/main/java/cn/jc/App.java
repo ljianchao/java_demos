@@ -4,10 +4,12 @@ import cn.jc.design.proxy.GamePlayIH;
 import cn.jc.design.proxy.GamePlayer;
 import cn.jc.design.proxy.GamePlayerImpl;
 import cn.jc.util.ArrayList;
+import cn.jc.util.List;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Hello world!
@@ -15,6 +17,19 @@ import java.util.List;
  */
 public class App 
 {
+    // 测试新建map
+    private static Map<String, Integer> keytype = new HashMap<String, Integer>() {
+        private static final long serialVersionUID = 6207897507346633280L;
+        private int index = 1;
+        {
+            put("int", index++);
+            put("string", index++);
+            put("long", index++);
+            put("byte", index++);
+            put("short", index++);
+        }
+    };
+
     public static void main( String[] args ) {
 //        GamePlayer player = new GamePlayerImpl("张三");
 //
@@ -48,29 +63,78 @@ public class App
 //        System.out.println(as[index++]);
 
         // 测试ArrayList的浅表副本clone()
-        ArrayList<User> oriList = new ArrayList<>();
-        oriList.add(new User("L", 1));
-        oriList.add(new User("J", 2));
-        ArrayList<User> cloneList = (ArrayList)oriList.clone();
+//        ArrayList<User> oriList = new ArrayList<>();
+//        oriList.add(new User("L", 1));
+//        oriList.add(new User("J", 2));
+//        ArrayList<User> cloneList = (ArrayList)oriList.clone();
+//
+//        System.out.println("original list:");
+//        for (User user:
+//             oriList) {
+//            System.out.println("name=" + user.getName() + "; age=" + user.getAge());
+//        }
+//        cloneList.get(1).setName("X");
+//
+//        System.out.println("original list:");
+//        for (User user:
+//                oriList) {
+//            System.out.println("name=" + user.getName() + "; age=" + user.getAge());
+//        }
+//
+//        System.out.println("destination list:");
+//        for (User user:
+//                oriList) {
+//            System.out.println("name=" + user.getName() + "; age=" + user.getAge());
+//        }
 
-        System.out.println("original list:");
-        for (User user:
-             oriList) {
-            System.out.println("name=" + user.getName() + "; age=" + user.getAge());
-        }
-        cloneList.get(1).setName("X");
 
-        System.out.println("original list:");
-        for (User user:
-                oriList) {
-            System.out.println("name=" + user.getName() + "; age=" + user.getAge());
-        }
+//        for (Map.Entry<String, Integer> entry:
+//             App.keytype.entrySet()) {
+//            System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+//        }
 
-        System.out.println("destination list:");
-        for (User user:
-                oriList) {
-            System.out.println("name=" + user.getName() + "; age=" + user.getAge());
-        }
+        // App.testArrayAssign();
+        App.testRemove();
+    }
 
+    public static void testArrayAssign(){
+        Object[] a = {1, 2, 3};
+        final Object[] b = a;
+        a[0] = 4;
+        System.out.println("array a :");
+        for (int i = 0; i < a.length; i++)
+            System.out.println("index = " + i + ", Value = " + a[i]);
+
+        System.out.println("array b :");
+        for (int i = 0; i < b.length; i++)
+            System.out.println("index = " + i + ", Value = " + b[i]);
+
+        System.out.println(a.equals(b));
+    }
+
+    public static void testRemove(){
+        List<String> origList = new ArrayList<String>(){
+            {
+                add("a");
+                add("b");
+                add("c");
+                add("d");
+                add("e");
+                add("f");
+            }
+        };
+
+        List<String> removeList = new ArrayList<String>(){
+            {
+                add("b");
+                add("d");
+                add("f");
+            }
+        };
+
+        origList.removeAll(removeList);
+
+        for (String str: origList)
+            System.out.println("value = " + str);
     }
 }
