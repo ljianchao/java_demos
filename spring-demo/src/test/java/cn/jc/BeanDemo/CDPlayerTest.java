@@ -20,8 +20,44 @@ public class CDPlayerTest {
     @Qualifier(value = "hardDaysNight")
     private CompactDisc cd;
 
+    @Autowired
+    private CDPlayer cdPlayer;
+
+    @Autowired
+    private Discography discography;
+
+    @Autowired
+    private BlankDisc disc;
+
+    @Autowired
+    @Qualifier("discT")
+    private BlankDisc discT;
+
+
     @Test
     public void cdShouldNotBeNull(){
         Assert.assertNotNull(cd);
+    }
+
+    @Test
+    public void cdPlayerShouldNotBeNull(){
+        Assert.assertNotNull(cdPlayer);
+    }
+
+    @Test
+    public void discographyShouldNotBeNull(){
+        Assert.assertNotNull(discography);
+    }
+
+    @Test
+    public void blankDistShouldNotBeNull(){
+        disc.play();
+        Assert.assertNotNull(disc);
+    }
+
+    @Test
+    public void blankDistTShouldNotBeNull(){
+        discT.play();
+        Assert.assertNotNull(discT);
     }
 }
