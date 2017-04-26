@@ -3,13 +3,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>欢迎访问ceph管理系统</title>
+<title>web系统</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/reset.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/management.css" />
 </head>
 <body>
 <div class="centerDiv" style="width:100%; padding:0; margin-top:0;">
-	<span class="f40 man_c1 font_family_v">欢迎访问ceph管理系统！</span>
+	<span class="f40 man_c1 font_family_v">欢迎访问web系统！</span>
     <br /><br />
 </div>
 <div class="hiddenDiv"></div> 
