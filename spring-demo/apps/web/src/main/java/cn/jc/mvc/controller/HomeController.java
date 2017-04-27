@@ -3,6 +3,7 @@ package cn.jc.mvc.controller;
 import cn.jc.mvc.vo.Spittle;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +16,9 @@ import java.util.Map;
 @Controller
 public class HomeController {
 
-    @RequestMapping(value = {"/", "/home"})
+    @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String showHomePage(Map<String, Object> model){
-        List<Spittle> spittles = new ArrayList<Spittle>(){
-            {
-                add(new Spittle("spittle1"));
-                add(new Spittle("spittle2"));
-            }
-        };
+        List<Spittle> spittles = new ArrayList<Spittle>();
 
         model.put("spittles", spittles);
 

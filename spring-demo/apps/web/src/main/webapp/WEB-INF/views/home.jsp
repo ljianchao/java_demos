@@ -1,11 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Spittr</title>
 </head>
 <body>
-    <p>
-        welcome spring mvc demo.
-    </p>
+    <h1>Welcome to Spittr</h1>
 </body>
 </html>
