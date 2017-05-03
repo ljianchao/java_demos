@@ -22,4 +22,10 @@ public class SpittleRepositoryImpl implements SpittleRepository {
         }
         return list;
     }
+
+    @Override
+    public Spittle findOne(long spittleId) {
+        Spittle spittle = new Spittle("hello world! the first ever spittle!", new Date());
+        return spittle;
+    }
 }
