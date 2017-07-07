@@ -1,13 +1,8 @@
 package cn.jc;
 
-import cn.jc.design.proxy.GamePlayIH;
-import cn.jc.design.proxy.GamePlayer;
-import cn.jc.design.proxy.GamePlayerImpl;
 import cn.jc.util.ArrayList;
 import cn.jc.util.List;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
 
