@@ -1,0 +1,7 @@
+
+ba-demo/ba-demo.iml
+ba-demo/.idea/*.xml
+ba-demo/.DS_Store
+.DS_Store
+Ba-demo/.idea/libraries/*.xml
+ba-demo/target/*
