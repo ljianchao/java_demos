@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--开启组件扫描-->
+    <!--<context:component-scan base-package="cn.jc"/>-->
+
+    <!-- 解析占位符 -->
+    <context:property-placeholder location="app.properties"/>
+
+    <bean id="hardDaysNight"  class="cn.jc.BeanDemo.HardDaysNight"/>
+
+    <!-- 构造函数注入-->
+    <bean id="cdPlayer" class="cn.jc.BeanDemo.CDPlayer">
+        <constructor-arg ref="hardDaysNight"/>
+    </bean>
+    <!-- 字面量注入-->
+    <bean id="blankDisc" class="cn.jc.BeanDemo.BlankDisc">
+        <constructor-arg value="black disc"/>
+        <constructor-arg value="The Beatles" />
+    </bean>
+    <!-- 装配集合 -->
+    <bean id="blankDiscL" class="cn.jc.BeanDemo.BlankDisc" >
+        <constructor-arg value="black disc"/>
+        <constructor-arg value="The Beatles" />
+        <constructor-arg>
+            <list>
+                <value>club</value>
+                <value>friends</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean class="cn.jc.BeanDemo.Discography">
+        <constructor-arg value="The Beatles"/>
+        <constructor-arg>
+            <list>
+                <ref bean="hardDaysNight"/>
+                <ref bean="blankDisc"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <!-- 属性注入 -->
+    <bean class="cn.jc.BeanDemo.CDPlayerSecd">
+        <property name="compactDisc" ref="hardDaysNight"/>
+    </bean>
+
+    <!-- 导入其他配置 -->
+    <!--<import resource="app-core.xml"/>-->
+</beans>
