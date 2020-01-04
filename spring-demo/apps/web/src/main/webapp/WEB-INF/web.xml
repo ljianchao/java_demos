@@ -19,6 +19,18 @@
 		</param-value>
 	</context-param>
 
+	<!-- 请求信息跟踪记录 -->
+	<filter>
+		<filter-name>MDCForTraceServletFilter</filter-name>
+		<filter-class>
+			com.mljr.kwrap.log.trace.MDCForTraceServletFilter
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>MDCForTraceServletFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 	<!-- 定义DispatcherServlet -->
 	<!-- servlet-name 和xml文件相关联-->
 	<servlet>

@@ -47,6 +47,8 @@
         <property name="compactDisc" ref="hardDaysNight"/>
     </bean>
 
+    <bean class="com.mljr.fuxi.xdiamond.util.MDiamondConfiguration"/>
+
     <!-- 导入其他配置 -->
     <!--<import resource="app-core.xml"/>-->
 </beans>

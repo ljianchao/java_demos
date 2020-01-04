@@ -1,5 +1,7 @@
 package cn.jc;
 
+import cn.jc.generics.MyNode;
+import cn.jc.generics.Node;
 import cn.jc.util.ArrayList;
 import cn.jc.util.List;
 
@@ -89,7 +91,12 @@ public class App
 //        }
 
         // App.testArrayAssign();
-        App.testRemove();
+//        App.testRemove();
+
+        MyNode mn = new MyNode(5);
+        Node n = mn;
+        n.setData("hello");
+        Integer x = mn.data;
     }
 
     public static void testArrayAssign(){

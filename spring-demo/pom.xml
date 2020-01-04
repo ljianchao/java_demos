@@ -12,8 +12,10 @@
 	<properties>
 		<project.version>1.0.0</project.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>3.1.4.RELEASE</spring.version>
+		<spring.version>4.1.7.RELEASE</spring.version>
 		<junit.version>4.12</junit.version>
+		<org.slf4j.version>1.7.7</org.slf4j.version>
+		<ch.qos.logback.version>1.1.7</ch.qos.logback.version>
 	</properties>
 
 	<dependencyManagement>
@@ -40,7 +42,6 @@
 				<version>${project.version}</version>
 			</dependency>
 			<!-- 系统相关依赖 end -->
-
 	
 			<!-- 单元测试依赖 -->
 			<dependency>
@@ -55,7 +56,24 @@
 				<version>${spring.version}</version>
 				<scope>test</scope>
 			</dependency>
-			
+
+			<!-- slf4j依赖 -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${org.slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>${ch.qos.logback.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>${org.slf4j.version}</version>
+			</dependency>
+
 			<!-- spring依赖begin -->
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -81,6 +99,12 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-context</artifactId>
 				<version>${spring.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -133,6 +157,7 @@
 				<version>5.4.1.Final</version>
 			</dependency>
 			<!-- spring依赖end -->
+
 			<!-- spring 代理需要 -->
 			<dependency>
 				<groupId>cglib</groupId>
@@ -141,16 +166,16 @@
 			</dependency>
 			
 			<!-- 以下配置为provided,不参与打包 -->
-			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>javax.servlet-api</artifactId>
-				<version>3.0.1</version>
-				<scope>provided</scope>
-			</dependency>
+			<!--<dependency>-->
+				<!--<groupId>javax.servlet</groupId>-->
+				<!--<artifactId>javax.servlet-api</artifactId>-->
+				<!--<version>3.0.1</version>-->
+				<!--<scope>provided</scope>-->
+			<!--</dependency>-->
 			<dependency>
 				<groupId>javax.servlet</groupId>
 				<artifactId>servlet-api</artifactId>
-				<version>2.5</version>
+				<version>3.1.0</version>
 				<scope>provided</scope>
 			</dependency>
 
@@ -182,6 +207,13 @@
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
 				<version>3.5</version>
+			</dependency>
+
+			<!-- 日志跟踪 -->
+			<dependency>
+				<groupId>com.mljr.kwrap</groupId>
+				<artifactId>kwrap-log-trace</artifactId>
+				<version>1.0.0</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

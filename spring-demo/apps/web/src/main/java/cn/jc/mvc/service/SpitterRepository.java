@@ -10,4 +10,6 @@ public interface SpitterRepository {
     boolean sava(Spitter spitter);
 
     Spitter findByUsername(String username);
+
+    Spitter findById(Long id);
 }

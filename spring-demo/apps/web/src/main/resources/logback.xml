@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<property name="app" value="begin-service"/>
+
+	<property name="LOG_HOME" value="logs" />
+
+	<!--<property name="LOG_HOME" value="/home/mljr/zipkin-server/logs" />-->
+
+	<property name="logback_pattern_info" value="[%thread] |-|%level |-| %X{X-ML-TraceId:-}|-| %X{X-ML-SpanId:-} |-| %X{req.remoteHost:-} |-| %X{req.requestURI:-} |-| %X{req.requestURL:-} |-| %X{req.queryString:-} |-| %d{yyyy-MM-dd'T'HH:mm:ss.SSS+08:00} |-|%logger{5}[%L] |-|%msg |-|%n"/>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${logback_pattern_info}</pattern>
+		</encoder>
+	</appender>
+
+	<!--<appender name="MIDDLEWARE_TRACE"-->
+			  <!--class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+		<!--<File>${LOG_HOME}/${app}_trace.log</File>-->
+
+		<!--<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">-->
+			<!--<pattern>${logback_pattern_info}</pattern>-->
+		<!--</encoder>-->
+
+		<!--<filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
+			<!--<level>DEBUG</level>-->
+		<!--</filter>-->
+
+		<!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+			<!--<FileNamePattern>${LOG_HOME}/backup/${app}_trace.%d{yyyy-MM-dd}.log</FileNamePattern>-->
+		<!--</rollingPolicy>-->
+	<!--</appender>-->
+
+	<!--<appender name="MIDDLEWARE_DEBUG"-->
+			  <!--class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+		<!--<File>${LOG_HOME}/${app}_debug.log</File>-->
+
+		<!--<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">-->
+			<!--<pattern>${logback_pattern_info}</pattern>-->
+		<!--</encoder>-->
+
+		<!--<filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
+			<!--<level>DEBUG</level>-->
+		<!--</filter>-->
+
+		<!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+			<!--<FileNamePattern>${LOG_HOME}/backup/${app}_debug.%d{yyyy-MM-dd}.log</FileNamePattern>-->
+		<!--</rollingPolicy>-->
+	<!--</appender>-->
+
+	<!--<appender name="MIDDLEWARE_INFO"-->
+			  <!--class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+		<!--<File>${LOG_HOME}/${app}.log</File>-->
+
+		<!--<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">-->
+			<!--<pattern>${logback_pattern_info}</pattern>-->
+		<!--</encoder>-->
+
+		<!--<filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
+			<!--<level>INFO</level>-->
+		<!--</filter>-->
+
+		<!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+			<!--<FileNamePattern>${LOG_HOME}/backup/${app}.%d{yyyy-MM-dd}.log</FileNamePattern>-->
+		<!--</rollingPolicy>-->
+	<!--</appender>-->
+
+
+	<!--<appender name="MIDDLEWARE_WARN"-->
+			  <!--class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+		<!--<File>${LOG_HOME}/${app}_warn.log</File>-->
+
+		<!--<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">-->
+			<!--<pattern>${logback_pattern_info}</pattern>-->
+		<!--</encoder>-->
+
+		<!--<filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
+			<!--<level>WARN</level>-->
+		<!--</filter>-->
+
+		<!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+			<!--<FileNamePattern>${LOG_HOME}/backup/${app}_warn.%d{yyyy-MM-dd}.log</FileNamePattern>-->
+		<!--</rollingPolicy>-->
+	<!--</appender>-->
+
+	<!--<appender name="MIDDLEWARE_ERROR"-->
+			  <!--class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+		<!--<File>${LOG_HOME}/${app}_error.log</File>-->
+
+		<!--<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">-->
+			<!--<pattern>${logback_pattern_info}</pattern>-->
+		<!--</encoder>-->
+
+		<!--<filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
+			<!--<level>ERROR</level>-->
+		<!--</filter>-->
+
+		<!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+			<!--<FileNamePattern>${LOG_HOME}/backup/${app}_error.%d{yyyy-MM-dd}.log</FileNamePattern>-->
+		<!--</rollingPolicy>-->
+	<!--</appender>-->
+
+    <root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="MIDDLEWARE_INFO" />
+		<appender-ref ref="MIDDLEWARE_ERROR" />
+		<appender-ref ref="MIDDLEWARE_DEBUG" />
+		<appender-ref ref="MIDDLEWARE_WARN" />
+	</root>
+
+</configuration>

@@ -6,6 +6,7 @@
 </head>
 <body>
     <h1>Your Profile</h1>
+    <c:out value="${spitter.id}"/><br/>
     <c:out value="${spitter.username}"/><br/>
     <c:out value="${spitter.firstName}"/><br/>
     <c:out value="${spitter.lastName}"/>
