@@ -2,6 +2,8 @@ package cn.jc.algorithm.tree;
 
 import cn.jc.structures.TreeNode;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -15,13 +17,15 @@ public class BinaryTreeNotRecursiveTraversal {
         treeNode.setLeft(new TreeNode<>("B"));
         treeNode.setRight(new TreeNode<>("C"));
 
-        System.out.println("栈的非递归中序遍历算法：");
-
+        System.out.println("二叉树利用栈的非递归中序遍历算法：");
         inOrderTraversalByStack(treeNode);
+
+        System.out.println("二叉树利用队列进行层序遍历算法：");
+        LevelOrderByQueue(treeNode);
     }
 
     /**
-     * 利用栈的非递归中序遍历算法
+     * 二叉树利用栈的非递归中序遍历算法
      * @param treeNode
      */
     static void inOrderTraversalByStack(TreeNode treeNode) {
@@ -47,6 +51,31 @@ public class BinaryTreeNotRecursiveTraversal {
                 // 右节点入栈
                 stack.push(popNode.getRight());
             }
+        }
+    }
+
+    /**
+     * 二叉树利用队列进行层序遍历算法
+     * 1. 先根结点入队
+     * 2. 从队列取出一个元素
+     * 3. 访问该元素所指结点
+     * 4. 若该元素所指结点的左、右孩子结点非空，
+     *    则将其左、右孩子的指针顺序入队
+     * @param treeNode
+     */
+    static void LevelOrderByQueue(TreeNode treeNode) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        if (treeNode == null)
+            return;
+        TreeNode pollNode;
+        queue.offer(treeNode);
+        while (!queue.isEmpty()) {
+            pollNode = queue.poll();
+            System.out.println(pollNode.getVal());
+            if (pollNode.getLeft() != null)
+                queue.offer(pollNode.getLeft());
+            if (pollNode.getRight() != null)
+                queue.offer(pollNode.getRight());
         }
     }
 }
