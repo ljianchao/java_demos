@@ -26,6 +26,7 @@ public class BinaryTreeRecursiveTraversal {
 
         System.out.println("该二叉树的深度为：" + binTreeDepth(treeNode));
 
+        System.out.println("查找二叉树上某结点值为D所在的层次：" + findNodeLevel(treeNode, "D", 1));
     }
 
     /**
@@ -83,5 +84,34 @@ public class BinaryTreeRecursiveTraversal {
         depLeft = binTreeDepth(treeNode.getLeft());
         depRight = binTreeDepth(treeNode.getRight());
         return depLeft > depRight ? depLeft + 1 : depRight + 1;
+    }
+
+    /**
+     * 查找二叉树上某结点值所在的层次
+     * 利用前序遍历
+     *
+     * 空二叉树返回0
+     * @param treeNode
+     * @param val
+     * @param currentLevel 当前结点所在的层次，调用时置初值为1
+     * @return
+     */
+    static int findNodeLevel(TreeNode treeNode, String val, int currentLevel) {
+        int level = 0;
+
+        // 空二叉树深度返回0
+        if (treeNode == null)
+            return 0;
+
+        if (val.equals(treeNode.getVal()))
+            return currentLevel;
+        // 遍历左子树
+        level = findNodeLevel(treeNode.getLeft(), val, currentLevel + 1);
+
+        // 遍历右子树
+        if (level == 0)
+            level = findNodeLevel(treeNode.getRight(), val, currentLevel + 1);
+
+        return level;
     }
 }
