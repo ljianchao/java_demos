@@ -16,31 +16,35 @@ public class BinaryTreeNotRecursiveTraversal {
         treeNode.setRight(new TreeNode<>("C"));
 
         System.out.println("栈的非递归中序遍历算法：");
-        InorderByStack(treeNode);
+
+        inOrderTraversalByStack(treeNode);
     }
 
     /**
      * 利用栈的非递归中序遍历算法
      * @param treeNode
      */
-    static void InorderByStack(TreeNode treeNode) {
+    static void inOrderTraversalByStack(TreeNode treeNode) {
+        // 创建并初始化栈
         Stack<TreeNode> stack = new Stack<>();
         TreeNode popNode;
-        // 入栈根结点
+        // push根节点
         stack.push(treeNode);
         while (!stack.empty()) {
-            // 循环栈顶元素
+            // 一直向左并将沿途结点节点压入堆栈
             while (stack.peek() != null) {
-                // 直到左子树为空为止
                 stack.push(stack.peek().getLeft());
             }
 
-            // 最后的null结点出栈
-            popNode = stack.pop();
+            // 弹出头部的空结点
+            stack.pop();
+
             if (!stack.empty()) {
-                // 输出内容
-                System.out.println(stack.peek().getVal());
+                // 弹出头部节点
                 popNode = stack.pop();
+                // 输出节点内容
+                System.out.println(popNode.getVal());
+                // 右节点入栈
                 stack.push(popNode.getRight());
             }
         }
