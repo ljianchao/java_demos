@@ -5,6 +5,8 @@ package cn.jc.demos.concurrency.base;
  *
  * Object.wait()和Object.notify()需配合synchronized一起使用，
  * Object.wait()会立即释放synchronized持有的对象锁
+ *
+ * Object.wait()会响应线程中断，抛出InterruptedException异常
  */
 public class SimpleWaitNotify {
 
