@@ -44,7 +44,7 @@ public class ThreadInterruptDemo {
                         // 为了保证数据的一致性和完整性，我们必须重设中断标志
                         Thread.currentThread().interrupt();
                     }
-                    // 会让出cpu执行时间给其他线程执行
+                    // 会使当前线程让出cpu，和其他线程同时去争夺cpu资源，但是能否再次被分配到，就不一定了
                     Thread.yield();
                 }
             }
